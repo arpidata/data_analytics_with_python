@@ -44,6 +44,13 @@ Through this course, I am building the ability to:
 
 The course is structured into **12 progressive sessions**:
 
+## 📚 Sessions
+
+| Session | Topic | Notebook |
+|--------|------|----------|
+| 01 | Foundations | [Open](notebooks/session_01_foundations.ipynb) |
+| 02 | Python Fundamentals | [Open](notebooks/session_02_python_foundamentals_for_data_analytics.ipynb) |
+
 ---
 
 # 🧩 Session 01 — Foundations
