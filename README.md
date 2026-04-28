@@ -1,6 +1,6 @@
 # 🐍 Python for Data Analytics — Professional Learning Journey
 
-##  About This Repository
+## About This Repository
 
 This repository documents my structured journey through the **Python for Data Analytics Bootcamp** .
 
@@ -10,7 +10,7 @@ The focus of this program is not only learning Python syntax, but developing the
 
 ---
 
-##  Objectives
+## Objectives
 
 Through this course, I am building the ability to:
 
@@ -22,14 +22,14 @@ Through this course, I am building the ability to:
 
 ---
 
-##  Core Concept
+## Core Concept
 
 > Python is not a replacement for SQL or Excel.
 > It is a tool for **controlling the entire data workflow**.
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 * Python 3.x
 * Miniconda (environment management)
@@ -40,7 +40,7 @@ Through this course, I am building the ability to:
 
 ---
 
-##  Course Structure
+## Course Structure
 
 The course is structured into **12 progressive sessions**:
 
@@ -235,7 +235,7 @@ data_analytics_with_python/
 
 ---
 
-##  Next Step
+## Next Step
 
 ➡️ Session 02: Data Structures
 Focus: Lists, Dictionaries, Data Organization
@@ -247,3 +247,361 @@ Focus: Lists, Dictionaries, Data Organization
 This repository reflects a transformation:
 
 > From running queries → to building data systems
+
+# 🧩 Session 02 — Python Fundamentals for Data Analytics
+
+## 🔹 Overview
+
+Session 02 builds the **core programming foundation required for analytical thinking in Python**.
+
+The focus is not just syntax, but understanding how to:
+
+> **Represent, transform, and analyze data using programmatic logic**
+
+This session marks the transition from:
+
+* Writing simple code → to **thinking in data transformations**
+
+---
+
+##  What I Can Do After This Session
+
+After completing this session, I can:
+
+- Perform core analytical computations using Python
+- Structure raw data into lists, dictionaries, and tabular formats
+- Apply conditional logic for filtering and segmentation
+- Iterate over datasets and compute aggregations
+- Write concise transformations using list comprehension
+- Transition from raw Python structures to pandas DataFrames
+- Perform basic data manipulation and filtering
+
+---
+
+## 🔹 Key Concepts
+
+### 1. Arithmetic & Boolean Logic
+
+Python supports fundamental operations used in all analytical workflows:
+
+```python
+r = 100
+t = 0.2
+total = r * (1 + t)
+```
+
+Boolean logic enables decision-making:
+
+```python
+100 > 50
+100 == 50
+100 != 50
+```
+
+Logical operators:
+
+* `and`
+* `or`
+* `not`
+
+👉 These form the basis of **filtering and rule-based analysis**
+
+---
+
+### 2. Core Data Structures
+
+#### List — Ordered Data
+
+```python
+sales = [100, 200, 150]
+```
+
+Used for:
+
+* Time series
+* Measurements
+* Sequential data
+
+---
+
+#### Tuple — Immutable Data
+
+```python
+coordinates = (40.18, 44.51)
+```
+
+Used for:
+
+* Fixed values
+* Constants
+* Safe data storage
+
+---
+
+#### Set — Unique Values
+
+```python
+customer_ids = {1, 2, 3, 3}
+```
+
+Key features:
+
+* Removes duplicates
+* Fast membership checks
+* Supports set operations
+
+Used for:
+
+* Deduplication
+* Data validation
+* Segment comparison
+
+---
+
+#### Dictionary — Structured Records
+
+```python
+customer = {
+    "name": "Anna",
+    "revenue": 150,
+    "city": "Yerevan"
+}
+```
+
+Used for:
+
+* Representing entities (rows)
+* Key-value relationships
+* Building structured datasets
+
+---
+
+### 3. From Structures to Tables
+
+A list of dictionaries represents tabular data:
+
+```python
+customers = [
+    {"name": "Anna", "revenue": 150},
+    {"name": "David", "revenue": 220}
+]
+```
+
+👉 This is the conceptual bridge to **DataFrames**
+
+---
+
+### 4. Introduction to pandas DataFrame
+
+A DataFrame is conceptually:
+
+* A collection of columns
+* Each column behaves like a labeled list
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    "name": ["Anna", "David"],
+    "revenue": [150, 220]
+})
+```
+
+Basic operations:
+
+* Column selection
+* Row filtering
+* Feature creation
+* Column removal
+
+👉 Mirrors SQL operations (`SELECT`, `WHERE`)
+
+---
+
+### 5. Conditional Statements (Decision Logic)
+
+```python
+if revenue > 100:
+    print("High revenue")
+else:
+    print("Normal revenue")
+```
+
+Key principles:
+
+* Conditions evaluate to `True` or `False`
+* Indentation defines execution blocks
+* `elif` enables multi-branch logic
+
+Used for:
+
+* Filtering
+* Segmentation
+* Rule-based scoring
+
+---
+
+### 6. Loops (Iteration)
+
+```python
+for value in sales:
+    print(value)
+```
+
+Used for:
+
+* Iterating over datasets
+* Applying rules
+* Aggregation
+
+Example:
+
+```python
+total = 0
+for value in sales:
+    total += value
+```
+
+---
+
+### 7. Combining Logic and Iteration
+
+```python
+for value in sales:
+    if value > 120:
+        print(value)
+```
+
+👉 Represents row-by-row filtering logic
+
+---
+
+### 8. range() and Control Flow
+
+```python
+for i in range(5):
+    print(i)
+```
+
+Used for:
+
+* Controlled iteration
+* Index-based logic
+
+---
+
+### 9. Nested Loops
+
+```python
+for i in range(3):
+    for j in range(2):
+        print(i, j)
+```
+
+Used for:
+
+* Multi-dimensional data
+* Pairwise operations
+
+⚠️ Increased complexity → impacts performance
+
+---
+
+### 10. List Comprehension (Efficient Transformation)
+
+```python
+new_sales = [value * 1.2 for value in sales]
+```
+
+With condition:
+
+```python
+high_sales = [value for value in sales if value > 120]
+```
+
+With transformation:
+
+```python
+labels = ["High" if v > 120 else "Low" for v in sales]
+```
+
+👉 Combines:
+
+* Iteration
+* Filtering
+* Transformation
+
+---
+
+### 11. Mutable vs Immutable Objects
+
+**Mutable:**
+
+* list, dict, set, DataFrame
+
+**Immutable:**
+
+* int, float, str, tuple
+
+Why it matters:
+
+* Prevents unintended changes
+* Avoids hidden bugs
+* Ensures predictable behavior
+
+---
+
+## 🔄 Analytical Perspective
+
+This session establishes the core mapping between Python and analytics:
+
+| Python Concept     | Analytics Equivalent |
+| ------------------ | -------------------- |
+| if                 | WHERE clause         |
+| loop               | row iteration        |
+| sum logic          | aggregation          |
+| list comprehension | transformation       |
+| dictionary         | record               |
+| DataFrame          | table                |
+
+---
+
+## 🔥 Key Takeaways
+
+* Data structures define how information is organized
+* Conditional logic enables decision-making
+* Loops enable scalable computation
+* List comprehension enables clean transformations
+* DataFrames formalize structured analysis
+
+---
+
+## 📈 Progress
+
+* [x] Session 01 — Foundations
+* [x] Session 02 — Python Fundamentals
+* [ ] Session 03 — Control Flow (Advanced)
+* [ ] Session 04 — Functions
+* [ ] Session 05 — File Handling
+* [ ] Session 06 — NumPy
+* [ ] Session 07 — Pandas
+* [ ] Session 08 — Data Cleaning
+* [ ] Session 09 — Visualization
+* [ ] Session 10 — Workflows
+* [ ] Session 11 — Automation
+* [ ] Session 12 — Final Project
+
+---
+
+## Next Step
+
+➡️ Session 03: Control Flow (Advanced)
+Focus: Functions, deeper logic, and reusable workflows
+
+---
+
+## 💡 Final Note
+
+This session completes the transition:
+
+> From writing Python code → to thinking in data logic and transformations
