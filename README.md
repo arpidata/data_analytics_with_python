@@ -51,6 +51,8 @@ The course is structured into **12 progressive sessions**:
 | 01 | Foundations | [Read](#-session-01--foundations) |
 | 02 | Python Fundamentals | [Read](#-session-02--python-fundamentals-for-data-analytics) |
 | 03 | Pandas & Data Workflow | [Read](#-session-03--introduction-to-pandas--data-workflow) |
+| 04 | Advanced Pandas | [Read](#session-04--advanced-pandas-aggregation--merging) |
+
 ---
 
 # 🧩 Session 01 — Foundations
@@ -627,7 +629,7 @@ Session 03 introduces **pandas** as the core tool for data analysis and builds t
 
 ---
 
-## 🎯 What I Can Do After This Session
+##  What I Can Do After This Session
 After completing this session, I can:
 * **Load** large-scale datasets into pandas DataFrames.
 * **Perform** structured data exploration (EDA).
@@ -651,21 +653,21 @@ import pandas as pd
 
 df_orders = pd.read_csv("../data/raw/orders.csv")
 df_products = pd.read_csv("../data/raw/products.csv")
+``` 
 
    Key principle: Always validate data immediately after loading.
-
 
 ## 3. Data Exploration (EDA)
 
 Core inspection methods:
 
 | Method | Description |
-|---|---|
-| `df.head()` / `df.tail()` | View first / last rows |
-| `df.columns` | Column names |
-| `df.info()` | General info (types, nulls) |
-| `df.dtypes` | Data type of each column |
-| `df.describe()` | Statistical summary |
+
+| df.head() / df.tail() | View first / last rows |
+| df.columns | Column names |
+| df.info() | General info (types, nulls) |
+| df.dtypes | Data type of each column |
+| df.describe() | Statistical summary |
 
 ---
 
@@ -744,7 +746,7 @@ df.to_csv("../data/processed/orders_cleaned.csv", index=False)
 
 ---
 
-## 🔄 Analytical Perspective
+##  Analytical Perspective
 
 | Action | Purpose |
 |---|---|
@@ -791,3 +793,259 @@ df.to_csv("../data/processed/orders_cleaned.csv", index=False)
 > 💡 **Final Note:** This session marks a major transition from writing basic Python code to building real data pipelines.
 
 
+# 🧩 Session 04 — Advanced Pandas: Aggregation & Merging
+
+## 🔹 Overview
+
+Session 04 moves from **single-table analysis → multi-table analytical thinking**.
+
+The focus is on:
+- Combining datasets and extracting higher-level insights using **aggregation** and **joins**
+
+This session reflects real-world analytics, where:
+- Data is distributed across multiple tables
+- Insights require joining + summarizing data
+
+---
+
+##  What I Can Do After This Session
+
+After completing this session, I can:
+
+- Understand the structure and role of multiple related tables
+- Identify primary and foreign keys
+- Perform data aggregation using `groupby()`
+- Merge datasets using `pd.merge()`
+- Validate joins using `indicator=True`
+- Build multi-table analytical datasets
+- Detect and handle data integrity issues during merges
+
+---
+
+## 🔹 Key Concepts
+
+### 1. Multi-Table Data Model
+
+Real datasets are structured as **relational systems**, not single tables.
+
+**Example (Instacart dataset):**
+
+| Table | Role | Grain |
+|---|---|---|
+| `orders` | Behavioral | One row per order |
+| `order_products_train` | Transaction | One row per product per order |
+| `products` | Master | One row per product |
+| `departments` | Lookup | One row per department |
+| `aisles` | Lookup | One row per aisle |
+
+> 👉 Understanding table relationships is critical before merging.
+
+---
+
+### 2. Keys & Relationships
+
+| Key Type | Description |
+|---|---|
+| **Primary Key** | Unique identifier (e.g. `order_id`) |
+| **Foreign Key** | Reference to another table (e.g. `product_id`) |
+
+**Example relationships:**
+- `orders.order_id` → `order_products_train.order_id`
+- `products.product_id` → `order_products_train.product_id`
+- `products.department_id` → `departments.department_id`
+
+---
+
+### 3. Aggregation with `groupby()`
+
+Aggregation allows us to summarize large datasets.
+
+```python
+df.groupby("department")["reordered"].mean()
+```
+
+**Common operations:**
+- `sum()`
+- `mean()`
+- `count()`
+- `nunique()`
+
+---
+
+### 4. Split-Apply-Combine Logic
+
+`groupby()` follows:
+
+1. **Split** → divide data into groups
+2. **Apply** → perform computation
+3. **Combine** → return aggregated result
+
+> 👉 Core principle of analytical computation
+
+---
+
+### 5. Merging DataFrames
+
+**Core syntax:**
+
+```python
+pd.merge(left_df, right_df, on="key", how="left")
+```
+
+**Merge types:**
+
+| Type | Behavior |
+|---|---|
+| `inner` | Only matching rows |
+| `left` | Keep all left rows |
+| `right` | Keep all right rows |
+| `outer` | Keep everything |
+
+> 👉 Most common in analytics: **left join**
+
+---
+
+### 6. Data Enrichment Workflow
+
+Step-by-step enrichment:
+
+```python
+# Step 1: products + departments
+df_prod_dep = pd.merge(df_products, df_departments, on="department_id", how="left")
+
+# Step 2: + aisles
+df_prod_full = pd.merge(df_prod_dep, df_aisles, on="aisle_id", how="left")
+```
+
+> 👉 Adds business meaning to IDs
+
+---
+
+### 7. Indicator for Validation
+
+```python
+pd.merge(df1, df2, on="key", how="left", indicator=True)
+```
+
+Produces `_merge` column:
+
+| Value | Meaning |
+|---|---|
+| `both` | matched |
+| `left_only` | missing in right |
+| `right_only` | missing in left |
+
+> 👉 Critical for data quality checks
+
+---
+
+### 8. Understanding Data Grain
+
+Each table operates at a different level:
+
+| Table | Grain |
+|---|---|
+| `orders` | order-level |
+| `order_products` | product-level |
+| `products` | product-level |
+
+> ⚠️ Merging different grains incorrectly → **duplicated rows**
+
+---
+
+### 9. Handling Repeated Keys
+
+In transactional tables:
+- `order_id` repeats → multiple products per order
+- `product_id` repeats → appears in many orders
+
+> 👉 This is expected, not an error
+
+---
+
+### 10. Analytical Merge Pipeline
+
+Full pipeline:
+
+```python
+# Filter relevant data
+df_orders_train = df_orders[df_orders["eval_set"] == "train"]
+
+# Merge orders with transactions
+df_merged = pd.merge(
+    df_orders_train,
+    df_order_products,
+    on="order_id",
+    how="left"
+)
+
+# Add product info
+df_merged = pd.merge(
+    df_merged,
+    df_products,
+    on="product_id",
+    how="left"
+)
+```
+
+> 👉 Builds a fully enriched analytical dataset
+
+---
+
+##  Analytical Perspective
+
+| Operation | Analytics Meaning |
+|---|---|
+| `groupby` | aggregation |
+| `merge` | JOIN |
+| `on` | join key |
+| `how="left"` | LEFT JOIN |
+| `_merge` | data validation |
+| repeated keys | transactional structure |
+| filtering before merge | WHERE clause |
+
+---
+
+## 🔥 Key Takeaways
+
+- Real-world data is **multi-table**
+- Always understand each table **before** merging
+- `groupby()` is the core of aggregation
+- `pd.merge()` connects the data ecosystem
+- Always validate joins using `indicator`
+- **Data grain awareness** prevents analytical errors
+- Enrichment transforms raw IDs → business insights
+
+---
+
+## 📈 Progress (Updated)
+
+- [x] Session 01 — Foundations
+- [x] Session 02 — Python Fundamentals
+- [x] Session 03 — Pandas & Data Workflow
+- [x] Session 04 — Advanced Pandas (Aggregation & Merging)
+- [ ] Session 05 — File Handling
+- [ ] Session 06 — NumPy
+- [ ] Session 07 — Advanced Data Cleaning
+- [ ] Session 08 — Visualization
+- [ ] Session 09 — Feature Engineering
+- [ ] Session 10 — Workflows
+- [ ] Session 11 — Automation
+- [ ] Session 12 — Final Project
+
+---
+
+## Next Step
+
+➡️ **Session 05: File Handling**
+Focus: Reading, writing, and managing data pipelines across file systems
+
+---
+
+## 💡 Final Note
+
+This session marks a major transition:
+
+> From **analyzing single tables** → to **building connected analytical datasets**
+
+👉 This is where analysis becomes **real-world data engineering thinking**
