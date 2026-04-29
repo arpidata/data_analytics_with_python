@@ -50,6 +50,7 @@ The course is structured into **12 progressive sessions**:
 |--------|------|---------|
 | 01 | Foundations | [Read](#-session-01--foundations) |
 | 02 | Python Fundamentals | [Read](#-session-02--python-fundamentals-for-data-analytics) |
+| 03 | Pandas & Data Workflow | [Read](#-session-03--introduction-to-pandas--data-workflow) |
 
 ---
 
@@ -602,7 +603,7 @@ This session establishes the core mapping between Python and analytics:
 
 ## Next Step
 
-➡️ Session 03: Control Flow (Advanced)
+➡️ Session 03: Pandas + Data Workflow (Advanced)
 Focus: Functions, deeper logic, and reusable workflows
 
 ---
@@ -612,3 +613,182 @@ Focus: Functions, deeper logic, and reusable workflows
 This session completes the transition:
 
 > From writing Python code → to thinking in data logic and transformations
+
+
+# 🧩 Session 03 — Introduction to Pandas & Data Workflow
+
+## 🔹 Overview
+Session 03 introduces **pandas** as the core tool for data analysis and builds the first end-to-end data workflow.
+
+**The focus shifts from:**
+> Writing Python logic → to working with real datasets
+
+**This session establishes the foundation for:**
+* Exploring, cleaning, transforming, and exporting structured data.
+
+---
+
+## 🎯 What I Can Do After This Session
+After completing this session, I can:
+* **Load** large-scale datasets into pandas DataFrames.
+* **Perform** structured data exploration (EDA).
+* **Clean and transform** raw data into usable formats.
+* **Create** analytical features from existing columns.
+* **Handle** missing values correctly.
+* **Reshape** datasets when necessary.
+* **Export** processed datasets for further analysis.
+
+---
+
+## 🔹 Key Concepts
+
+### 1. Pandas Core Data Structures
+* **Series**: 1-dimensional labeled array (Values + Index).
+* **DataFrame**: 2-dimensional table (Rows + Columns + Values). Equivalent to a SQL table or Excel sheet.
+
+### 2. Data Import
+```python
+import pandas as pd
+
+df_orders = pd.read_csv("../data/raw/orders.csv")
+df_products = pd.read_csv("../data/raw/products.csv")
+
+   Key principle: Always validate data immediately after loading.
+
+
+## 3. Data Exploration (EDA)
+
+Core inspection methods:
+
+| Method | Description |
+|---|---|
+| `df.head()` / `df.tail()` | View first / last rows |
+| `df.columns` | Column names |
+| `df.info()` | General info (types, nulls) |
+| `df.dtypes` | Data type of each column |
+| `df.describe()` | Statistical summary |
+
+---
+
+## 4. Data Wrangling (Cleaning & Structuring)
+
+- **Dropping columns:**
+  ```python
+  df.drop(columns=["eval_set"])
+  ```
+
+- **Renaming columns:**
+  ```python
+  df.rename(columns={"eval_set": "dataset_type"})
+  ```
+
+- **Changing types:**
+  ```python
+  df["order_id"] = df["order_id"].astype("int64")
+  ```
+
+---
+
+## 5. Feature Engineering
+
+Creating business-ready insights:
+
+```python
+# Boolean flags
+df["is_weekend"] = df["order_dow"].isin([0, 6])
+
+# Categorization using apply
+df["order_frequency_category"] = df["order_number"].apply(
+    lambda x: "New" if x == 1 else "Low" if x <= 5 else "High"
+)
+```
+
+---
+
+## 6. Handling Missing Values
+
+```python
+df["days_since_prior_order"] = df["days_since_prior_order"].fillna(0)
+```
+
+> **Key principle:** Missing data must be explicitly handled before analysis.
+
+---
+
+## 7. Vectorization vs `apply()`
+
+| Approach | Efficiency |
+|---|---|
+| ✅ Preferred (Vectorized): `df["order_hour_of_day"] < 12` | Fast and scalable |
+| ⚠️ Less efficient: `df["col"].apply(lambda x: ...)` | Avoid when possible |
+
+> **Key principle:** Vectorized operations are faster and more scalable.
+
+---
+
+## 8. Data Reshaping
+
+- **Transpose** (Convert wide → long format or fix structure):
+  ```python
+  df.T
+  ```
+
+---
+
+## 9. Exporting Data
+
+```python
+df.to_csv("../data/processed/orders_cleaned.csv", index=False)
+```
+
+> **Key principle:** Processed data should be saved separately from raw data.
+
+---
+
+## 🔄 Analytical Perspective
+
+| Action | Purpose |
+|---|---|
+| `head` / `tail` | Quick inspection |
+| `info` / `dtypes` | Structure & data types |
+| `describe` | Statistical overview |
+| `drop` / `rename` | Cleaning |
+| `astype` | Data correctness |
+| Feature creation | Business logic |
+| `fillna` | Data reliability |
+| `to_csv` | Workflow output |
+
+---
+
+## 🔥 Key Takeaways
+
+- Pandas is the core tool for data analysis in Python.
+- Every analysis starts with Structured Exploration (EDA).
+- Data must be cleaned before it can be analyzed.
+- Feature engineering creates business value.
+- Vectorized operations are essential for performance.
+
+---
+
+## 📈 Progress (Updated)
+
+- [x] Session 01 — Foundations
+- [x] Session 02 — Python Fundamentals
+- [x] Session 03 — Pandas & Data Workflow
+- [ ] Session 04 — Functions
+- [ ] Session 05 — File Handling
+- [ ] Session 06 — NumPy
+- [ ] Session 07 — Advanced Pandas
+- [ ] Session 08 — Data Cleaning (Advanced)
+- [ ] Session 09 — Visualization
+- [ ] Session 10 — Workflows
+- [ ] Session 11 — Automation
+- [ ] Session 12 — Final Project
+
+**Next Step:** ➡️ Session 04: Functions (Reusable logic & modular code)
+
+---
+
+> 💡 **Final Note:** This session marks a major transition from writing basic Python code to building real data pipelines.
+
+
