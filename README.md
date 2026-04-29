@@ -51,7 +51,7 @@ The course is structured into **12 progressive sessions**:
 | 01 | Foundations | [Read](#-session-01--foundations) |
 | 02 | Python Fundamentals | [Read](#-session-02--python-fundamentals-for-data-analytics) |
 | 03 | Pandas & Data Workflow | [Read](#-session-03--introduction-to-pandas--data-workflow) |
-| 04 | Advanced Pandas | [Read](#session-04--advanced-pandas-aggregation--merging) |
+| 04 | Advanced Pandas | [Read](#-session-04--advanced-pandas-aggregation--merging) |
 
 ---
 
