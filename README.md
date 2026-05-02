@@ -273,17 +273,17 @@ This session marks the transition from:
 
 ---
 
-##  What I Can Do After This Session
+## What I Can Do After This Session
 
 After completing this session, I can:
 
-- Perform core analytical computations using Python
-- Structure raw data into lists, dictionaries, and tabular formats
-- Apply conditional logic for filtering and segmentation
-- Iterate over datasets and compute aggregations
-- Write concise transformations using list comprehension
-- Transition from raw Python structures to pandas DataFrames
-- Perform basic data manipulation and filtering
+* Perform core analytical computations using Python
+* Structure raw data into lists, dictionaries, and tabular formats
+* Apply conditional logic for filtering and segmentation
+* Iterate over datasets and compute aggregations
+* Write concise transformations using list comprehension
+* Transition from raw Python structures to pandas DataFrames
+* Perform basic data manipulation and filtering
 
 ---
 
@@ -615,22 +615,25 @@ This session completes the transition:
 
 > From writing Python code → to thinking in data logic and transformations
 
-
 # 🧩 Session 03 — Introduction to Pandas & Data Workflow
 
 ## 🔹 Overview
+
 Session 03 introduces **pandas** as the core tool for data analysis and builds the first end-to-end data workflow.
 
 **The focus shifts from:**
 > Writing Python logic → to working with real datasets
 
 **This session establishes the foundation for:**
+
 * Exploring, cleaning, transforming, and exporting structured data.
 
 ---
 
-##  What I Can Do After This Session
+## What I Can Do After This Session
+
 After completing this session, I can:
+
 * **Load** large-scale datasets into pandas DataFrames.
 * **Perform** structured data exploration (EDA).
 * **Clean and transform** raw data into usable formats.
@@ -644,16 +647,18 @@ After completing this session, I can:
 ## 🔹 Key Concepts
 
 ### 1. Pandas Core Data Structures
+
 * **Series**: 1-dimensional labeled array (Values + Index).
 * **DataFrame**: 2-dimensional table (Rows + Columns + Values). Equivalent to a SQL table or Excel sheet.
 
 ### 2. Data Import
+
 ```python
 import pandas as pd
 
 df_orders = pd.read_csv("../data/raw/orders.csv")
 df_products = pd.read_csv("../data/raw/products.csv")
-``` 
+```
 
    Key principle: Always validate data immediately after loading.
 
@@ -673,17 +678,20 @@ Core inspection methods:
 
 ## 4. Data Wrangling (Cleaning & Structuring)
 
-- **Dropping columns:**
+* **Dropping columns:**
+
   ```python
   df.drop(columns=["eval_set"])
   ```
 
-- **Renaming columns:**
+* **Renaming columns:**
+
   ```python
   df.rename(columns={"eval_set": "dataset_type"})
   ```
 
-- **Changing types:**
+* **Changing types:**
+
   ```python
   df["order_id"] = df["order_id"].astype("int64")
   ```
@@ -729,7 +737,8 @@ df["days_since_prior_order"] = df["days_since_prior_order"].fillna(0)
 
 ## 8. Data Reshaping
 
-- **Transpose** (Convert wide → long format or fix structure):
+* **Transpose** (Convert wide → long format or fix structure):
+
   ```python
   df.T
   ```
@@ -746,7 +755,7 @@ df.to_csv("../data/processed/orders_cleaned.csv", index=False)
 
 ---
 
-##  Analytical Perspective
+## Analytical Perspective
 
 | Action | Purpose |
 |---|---|
@@ -763,35 +772,34 @@ df.to_csv("../data/processed/orders_cleaned.csv", index=False)
 
 ## 🔥 Key Takeaways
 
-- Pandas is the core tool for data analysis in Python.
-- Every analysis starts with Structured Exploration (EDA).
-- Data must be cleaned before it can be analyzed.
-- Feature engineering creates business value.
-- Vectorized operations are essential for performance.
+* Pandas is the core tool for data analysis in Python.
+* Every analysis starts with Structured Exploration (EDA).
+* Data must be cleaned before it can be analyzed.
+* Feature engineering creates business value.
+* Vectorized operations are essential for performance.
 
 ---
 
 ## 📈 Progress (Updated)
 
-- [x] Session 01 — Foundations
-- [x] Session 02 — Python Fundamentals
-- [x] Session 03 — Pandas & Data Workflow
-- [ ] Session 04 — Functions
-- [ ] Session 05 — File Handling
-- [ ] Session 06 — NumPy
-- [ ] Session 07 — Advanced Pandas
-- [ ] Session 08 — Data Cleaning (Advanced)
-- [ ] Session 09 — Visualization
-- [ ] Session 10 — Workflows
-- [ ] Session 11 — Automation
-- [ ] Session 12 — Final Project
+* [x] Session 01 — Foundations
+* [x] Session 02 — Python Fundamentals
+* [x] Session 03 — Pandas & Data Workflow
+* [ ] Session 04 — Functions
+* [ ] Session 05 — File Handling
+* [ ] Session 06 — NumPy
+* [ ] Session 07 — Advanced Pandas
+* [ ] Session 08 — Data Cleaning (Advanced)
+* [ ] Session 09 — Visualization
+* [ ] Session 10 — Workflows
+* [ ] Session 11 — Automation
+* [ ] Session 12 — Final Project
 
 **Next Step:** ➡️ Session 04: Functions (Reusable logic & modular code)
 
 ---
 
 > 💡 **Final Note:** This session marks a major transition from writing basic Python code to building real data pipelines.
-
 
 # 🧩 Session 04 — Advanced Pandas: Aggregation & Merging
 
@@ -800,25 +808,27 @@ df.to_csv("../data/processed/orders_cleaned.csv", index=False)
 Session 04 moves from **single-table analysis → multi-table analytical thinking**.
 
 The focus is on:
-- Combining datasets and extracting higher-level insights using **aggregation** and **joins**
+
+* Combining datasets and extracting higher-level insights using **aggregation** and **joins**
 
 This session reflects real-world analytics, where:
-- Data is distributed across multiple tables
-- Insights require joining + summarizing data
+
+* Data is distributed across multiple tables
+* Insights require joining + summarizing data
 
 ---
 
-##  What I Can Do After This Session
+## What I Can Do After This Session
 
 After completing this session, I can:
 
-- Understand the structure and role of multiple related tables
-- Identify primary and foreign keys
-- Perform data aggregation using `groupby()`
-- Merge datasets using `pd.merge()`
-- Validate joins using `indicator=True`
-- Build multi-table analytical datasets
-- Detect and handle data integrity issues during merges
+* Understand the structure and role of multiple related tables
+* Identify primary and foreign keys
+* Perform data aggregation using `groupby()`
+* Merge datasets using `pd.merge()`
+* Validate joins using `indicator=True`
+* Build multi-table analytical datasets
+* Detect and handle data integrity issues during merges
 
 ---
 
@@ -850,9 +860,10 @@ Real datasets are structured as **relational systems**, not single tables.
 | **Foreign Key** | Reference to another table (e.g. `product_id`) |
 
 **Example relationships:**
-- `orders.order_id` → `order_products_train.order_id`
-- `products.product_id` → `order_products_train.product_id`
-- `products.department_id` → `departments.department_id`
+
+* `orders.order_id` → `order_products_train.order_id`
+* `products.product_id` → `order_products_train.product_id`
+* `products.department_id` → `departments.department_id`
 
 ---
 
@@ -865,10 +876,11 @@ df.groupby("department")["reordered"].mean()
 ```
 
 **Common operations:**
-- `sum()`
-- `mean()`
-- `count()`
-- `nunique()`
+
+* `sum()`
+* `mean()`
+* `count()`
+* `nunique()`
 
 ---
 
@@ -956,8 +968,9 @@ Each table operates at a different level:
 ### 9. Handling Repeated Keys
 
 In transactional tables:
-- `order_id` repeats → multiple products per order
-- `product_id` repeats → appears in many orders
+
+* `order_id` repeats → multiple products per order
+* `product_id` repeats → appears in many orders
 
 > 👉 This is expected, not an error
 
@@ -992,7 +1005,7 @@ df_merged = pd.merge(
 
 ---
 
-##  Analytical Perspective
+## Analytical Perspective
 
 | Operation | Analytics Meaning |
 |---|---|
@@ -1008,30 +1021,30 @@ df_merged = pd.merge(
 
 ## 🔥 Key Takeaways
 
-- Real-world data is **multi-table**
-- Always understand each table **before** merging
-- `groupby()` is the core of aggregation
-- `pd.merge()` connects the data ecosystem
-- Always validate joins using `indicator`
-- **Data grain awareness** prevents analytical errors
-- Enrichment transforms raw IDs → business insights
+* Real-world data is **multi-table**
+* Always understand each table **before** merging
+* `groupby()` is the core of aggregation
+* `pd.merge()` connects the data ecosystem
+* Always validate joins using `indicator`
+* **Data grain awareness** prevents analytical errors
+* Enrichment transforms raw IDs → business insights
 
 ---
 
 ## 📈 Progress (Updated)
 
-- [x] Session 01 — Foundations
-- [x] Session 02 — Python Fundamentals
-- [x] Session 03 — Pandas & Data Workflow
-- [x] Session 04 — Advanced Pandas (Aggregation & Merging)
-- [ ] Session 05 — File Handling
-- [ ] Session 06 — NumPy
-- [ ] Session 07 — Advanced Data Cleaning
-- [ ] Session 08 — Visualization
-- [ ] Session 09 — Feature Engineering
-- [ ] Session 10 — Workflows
-- [ ] Session 11 — Automation
-- [ ] Session 12 — Final Project
+* [x] Session 01 — Foundations
+* [x] Session 02 — Python Fundamentals
+* [x] Session 03 — Pandas & Data Workflow
+* [x] Session 04 — Advanced Pandas (Aggregation & Merging)
+* [ ] Session 05 — File Handling
+* [ ] Session 06 — NumPy
+* [ ] Session 07 — Advanced Data Cleaning
+* [ ] Session 08 — Visualization
+* [ ] Session 09 — Feature Engineering
+* [ ] Session 10 — Workflows
+* [ ] Session 11 — Automation
+* [ ] Session 12 — Final Project
 
 ---
 
